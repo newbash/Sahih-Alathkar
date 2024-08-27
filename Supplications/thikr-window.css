@@ -1,0 +1,36 @@
+/* Basic styles for the Thikr window */
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h2 {
+    color: #3794ff;
+    font-size: 1.8rem;
+    margin: 20px 0;
+}
+
+p {
+    font-size: 1.4rem;
+    margin: 20px 0;
+    color: #333;
+    line-height: 1.6;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3794ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2868b2;
+}

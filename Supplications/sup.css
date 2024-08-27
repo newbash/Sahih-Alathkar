@@ -1,0 +1,144 @@
+/* Importing the Rubik font */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+/* Global styles */
+body {
+    font-family: 'Rubik', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    direction: rtl; /* Ensures all text flows right-to-left */
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.5rem;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 15px; /* Adjust to keep spacing consistent with RTL layout */
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2.amiri-bold {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #3794ff;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.collapsible {
+    margin-bottom: 10px;
+}
+
+.collapsible-header {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #3794ff;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    direction: rtl; /* Ensures header text is RTL */
+}
+
+.collapsible-content {
+    padding: 10px;
+    display: none;
+    background-color: #f2f2f2;
+    border-radius: 0 0 5px 5px;
+}
+
+.supplication-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    direction: rtl; /* Ensures supplication items are RTL */
+}
+
+.supplication-number {
+    color: darkred;
+    font-weight: bold;
+    margin-left: 10px; /* Adjusted to be RTL */
+}
+
+.supplication-text {
+    text-align: right;
+    flex-grow: 1;
+    color: blue;
+    direction: rtl; /* Ensures text is RTL */
+}
+
+.supplication-source {
+    font-size: 1.1rem;
+    color: green;
+    margin-right: 10px;
+}
+
+.supplication-benefit {
+    font-size: 1rem;
+    color: olive;
+    margin-right: 10px;
+}
+
+.supplication-buttons {
+    display: flex;
+    gap: 10px;
+    direction: ltr; /* Keep buttons aligned left-to-right */
+}
+
+.supplication-buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.supplication-buttons img {
+    width: 24px;
+    height: 24px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+}

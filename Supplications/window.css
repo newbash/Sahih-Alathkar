@@ -1,0 +1,82 @@
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Adjust width as needed */
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+}
+
+/* Close button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: red; /* Slight red hover */
+    text-decoration: none;
+}
+
+/* Rank arrows */
+.rank-arrow-up,
+.rank-arrow-down {
+    position: absolute;
+    right: -50px; /* Position outside the window */
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 24px;
+}
+
+.rank-arrow-up {
+    top: 40%; /* Position at the top */
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.rank-arrow-down {
+    top: 50%; /* Position below the up arrow */
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.rank-arrow-up:hover,
+.rank-arrow-down:hover {
+    background-color: #004c99;
+}
+
+/* Adjust text in modal */
+#thikr-content {
+    font-size: 1.3em;
+    line-height: 1.5em;
+    margin-top: 20px;
+    text-align: center;
+}

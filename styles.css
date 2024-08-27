@@ -1,0 +1,128 @@
+body {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    direction: rtl; /* Right-to-left text direction */
+    text-align: center; /* Align text to the right */
+}
+
+.rubik {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.amiri-regular {
+    font-family: "Amiri", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.amiri-bold {
+    font-family: "Amiri", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f4f4f4;
+}
+
+.section {
+    padding: 50px 20px;
+    background-color: #fff;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.section:hover {
+    transform: translateY(-10px);
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+h2 {
+    color: black;
+}
+
+.tip h3 {
+    color: green;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #555;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Animations */
+.animate-fadein {
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+    .tips-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
