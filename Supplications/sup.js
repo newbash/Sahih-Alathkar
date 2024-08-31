@@ -10,11 +10,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const headerDiv = document.createElement('div');
                 headerDiv.classList.add('collapsible-header');
-                headerDiv.innerHTML = `<span class="title">${section.title}</span>`;
+
+                // Adding the title and arrow dynamically
+                headerDiv.innerHTML = `
+                    <span class="title">${section.title}</span>
+                    <span class="arrow">▶</span>
+                `;
+
+                const arrow = headerDiv.querySelector('.arrow');
 
                 headerDiv.addEventListener('click', () => {
                     const contentUl = sectionDiv.querySelector('.collapsible-content');
-                    contentUl.style.display = contentUl.style.display === 'none' ? 'block' : 'none';
+                    
+                    if (contentUl.style.display === 'none') {
+                        contentUl.style.display = 'block';
+                        arrow.innerHTML = '▼'; // Arrow down when section is open
+                    } else {
+                        contentUl.style.display = 'none';
+                        arrow.innerHTML = '▶'; // Arrow right when section is closed
+                    }
                 });
 
                 sectionDiv.appendChild(headerDiv);
@@ -23,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 contentUl.classList.add('collapsible-content');
                 contentUl.style.display = 'none'; // Initially hide the content
 
-                section.supplications.forEach(supp => {
-                    const supplicationKey = Object.keys(supp)[0]; // Get the ID
-                    const supplication = supp[supplicationKey]; // Get the supplication object
+                section.supplications.forEach(supplicationData => {
+                    const supplicationId = Object.keys(supplicationData)[0]; // Get the supplication ID
+                    const supplication = supplicationData[supplicationId]; // Get the supplication object
 
                     const li = document.createElement('li');
                     li.classList.add('supplication-item');
@@ -35,10 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="supplication-source">${supplication.source}</span>
                         <span class="supplication-benefit">${supplication.benefit}</span>
                         <div class="supplication-buttons">
-                            <button class="btn-pure-thikr" onclick="openThikrWindow('${supplicationKey}')" title="ذكر خالص"><img src="Assets/Btns/benefits.svg" alt="ذكر خالص"></button>
-                            <button class="btn-explanation" onclick="openExplanationWindow('${supplicationKey}')" title="توضيح"><img src="Assets/Btns/source.svg" alt="توضيح"></button>
-                            <button class="btn-full-thikr" onclick="openFullThikrWindow('${supplicationKey}')" title="الذكر الكامل"><img src="Assets/Btns/full-thikr.svg" alt="الذكر الكامل"></button>
-                            <button class="btn-copy" onclick="copySupplication('${supplicationKey}')" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
+                            <button class="btn-pure-thikr" onclick="openThikrWindow('${supplicationId}')" title="ذكر خالص"><img src="Assets/Btns/benefits.svg" alt="ذكر خالص"></button>
+                            <button class="btn-explanation" onclick="openExplanationWindow('${supplicationId}')" title="توضيح"><img src="Assets/Btns/source.svg" alt="توضيح"></button>
+                            <button class="btn-full-thikr" onclick="openFullThikrWindow('${supplicationId}')" title="الذكر الكامل"><img src="Assets/Btns/full-thikr.svg" alt="الذكر الكامل"></button>
+                            <button class="btn-copy" onclick="copySupplication('${supplicationId}')" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
                         </div>
                     `;
                     contentUl.appendChild(li);
@@ -51,71 +65,21 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error('Error fetching the supplications:', error));
 });
 
-// Function to open the modal and inject content
-function openModal(content) {
-    const modal = document.getElementById("myModal");
-    const modalBody = document.getElementById("modalBody");
-    modalBody.innerHTML = content;
-    modal.style.display = "block";
-
-    // Attach event listener to the close button inside the modal
-    document.querySelector('.close').addEventListener('click', closeModal);
-}
-
-// Function to close the modal
-function closeModal() {
-    const modal = document.getElementById("myModal");
-    modal.style.display = "none";
-}
-
-// Function to open a Thikr window with the pure Thikr text
-function openThikrWindow(id) {
-    fetch('supplications.json')
-        .then(response => response.json())
-        .then(data => {
-            const supplication = findSupplicationById(data, id);
-            if (supplication) {
-                const content = `
-                    <h2>ذكر خالص</h2>
-                    <p>${supplication.pureThikr}</p>
-                `;
-                openModal(content);
-            }
-        })
-        .catch(error => console.error('Error fetching the supplication:', error));
-}
-
-// Function to open an Explanation window
-function openExplanationWindow(id) {
-    fetch('supplications.json')
-        .then(response => response.json())
-        .then(data => {
-            const supplication = findSupplicationById(data, id);
-            if (supplication) {
-                const content = `
-                    <h2>توضيح</h2>
-                    <p>${supplication.explanation}</p>
-                `;
-                openModal(content);
-            }
-        })
-        .catch(error => console.error('Error fetching the supplication:', error));
-}
 
 // Function to open the full Thikr window
 function openFullThikrWindow(id) {
     fetch('supplications.json')
         .then(response => response.json())
         .then(data => {
-            const supplication = findSupplicationById(data, id);
+            const supplication = data.sections.flatMap(section => section.supplications).map(supp => supp[id]).find(Boolean);
             if (supplication) {
                 const content = `
                     <h2>الذكر الكامل</h2>
                     <p><strong>الرقم:</strong> ${supplication.number}</p>
-                    <p><strong>الذكر:</strong> ${supplication.text}</p>
+                    <p><strong>الذكر:</strong> ${supplication.pureThikr}</p>
                     <p><strong>المصدر:</strong> ${supplication.source}</p>
                     <p><strong>التوضيح:</strong> ${supplication.explanation}</p>
-                `;
+                    `;
                 openModal(content);
             }
         })
@@ -127,7 +91,7 @@ function copySupplication(id) {
     fetch('supplications.json')
         .then(response => response.json())
         .then(data => {
-            const supplication = findSupplicationById(data, id);
+            const supplication = data.sections.flatMap(section => section.supplications).map(supp => supp[id]).find(Boolean);
             if (supplication) {
                 navigator.clipboard.writeText(supplication.pureThikr)
                     .then(() => alert('تم نسخ النص إلى الحافظة!'))
@@ -137,18 +101,6 @@ function copySupplication(id) {
         .catch(error => console.error('Error fetching the supplication:', error));
 }
 
-// Utility function to find a supplication by ID
-function findSupplicationById(data, id) {
-    for (const section of data.sections) {
-        for (const supp of section.supplications) {
-            if (supp[id]) {
-                return supp[id];
-            }
-        }
-    }
-    return null;
-}
-
 // Close the modal when the user clicks outside the modal content
 window.onclick = function(event) {
     const modal = document.getElementById("myModal");
@@ -156,3 +108,6 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
+// Close the modal when the user clicks the "close" button
+document.querySelector('.close').addEventListener('click', closeModal);

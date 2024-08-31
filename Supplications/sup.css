@@ -61,19 +61,38 @@ h2.amiri-bold {
     margin-bottom: 10px;
 }
 
+/* Move section titles to the right */
 .collapsible-header {
-    font-family: 'Rubik', sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between; /* Aligns title and arrow on opposite ends */
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
     background-color: #3794ff;
     color: white;
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-radius: 5px;
-    direction: rtl; /* Ensures header text is RTL */
+    margin-bottom: 5px;
+}
+
+.collapsible-header .title {
+    flex-grow: 1;
+    text-align: right; /* Ensures the title aligns to the right */
+    font-size: 1.5em; /* Increase this value to make the text larger */
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.collapsible-header .arrow {
+    margin-left: 10px;
+    font-size: 1.5em; /* Adjust size to match the title text size */
+    transform: rotate(0deg); /* Ensures the arrow starts in the correct position */
+    transition: transform 0.2s; /* Smooth rotation animation */
+}
+
+
+/* Rotate arrow when section is open */
+.collapsible-header.active .arrow {
+    transform: rotate(180deg); /* Make sure the arrow points down when active */
 }
 
 .collapsible-content {
