@@ -13,21 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // Adding the title and arrow dynamically
                 headerDiv.innerHTML = `
-                    <span class="title">${section.title}</span>
                     <span class="arrow">▶</span>
+                    <span class="title">${section.title}</span>
                 `;
-
-                const arrow = headerDiv.querySelector('.arrow');
 
                 headerDiv.addEventListener('click', () => {
                     const contentUl = sectionDiv.querySelector('.collapsible-content');
-                    
-                    if (contentUl.style.display === 'none') {
+                    const arrow = headerDiv.querySelector('.arrow');
+
+                    if (contentUl.style.display === 'none' || contentUl.style.display === '') {
                         contentUl.style.display = 'block';
-                        arrow.innerHTML = '▼'; // Arrow down when section is open
+                        arrow.style.transform = 'rotate(90deg)';
                     } else {
                         contentUl.style.display = 'none';
-                        arrow.innerHTML = '▶'; // Arrow right when section is closed
+                        arrow.style.transform = 'rotate(0deg)';
                     }
                 });
 
@@ -49,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="supplication-source">${supplication.source}</span>
                         <span class="supplication-benefit">${supplication.benefit}</span>
                         <div class="supplication-buttons">
-                            <button class="btn-pure-thikr" onclick="openThikrWindow('${supplicationId}')" title="ذكر خالص"><img src="Assets/Btns/benefits.svg" alt="ذكر خالص"></button>
-                            <button class="btn-explanation" onclick="openExplanationWindow('${supplicationId}')" title="توضيح"><img src="Assets/Btns/source.svg" alt="توضيح"></button>
-                            <button class="btn-full-thikr" onclick="openFullThikrWindow('${supplicationId}')" title="الذكر الكامل"><img src="Assets/Btns/full-thikr.svg" alt="الذكر الكامل"></button>
-                            <button class="btn-copy" onclick="copySupplication('${supplicationId}')" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
+                            <button class="btn-pure-thikr" data-id="${supplicationId}" title="ذكر خالص"><img src="Assets/Btns/benefits.svg" alt="ذكر خالص"></button>
+                            <button class="btn-explanation" data-id="${supplicationId}" title="توضيح"><img src="Assets/Btns/source.svg" alt="توضيح"></button>
+                            <button class="btn-full-thikr" data-id="${supplicationId}" title="الذكر الكامل"><img src="Assets/Btns/full-thikr.svg" alt="الذكر الكامل"></button>
+                            <button class="btn-copy" data-id="${supplicationId}" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
                         </div>
                     `;
                     contentUl.appendChild(li);
@@ -61,10 +60,80 @@ document.addEventListener("DOMContentLoaded", () => {
                 sectionDiv.appendChild(contentUl);
                 sectionsContainer.appendChild(sectionDiv);
             });
+
+            // Attach event listeners after the content is dynamically added
+            attachEventListeners();
         })
         .catch(error => console.error('Error fetching the supplications:', error));
 });
 
+function attachEventListeners() {
+    document.querySelectorAll('.btn-pure-thikr').forEach(button => {
+        button.addEventListener('click', () => {
+            openThikrWindow(button.getAttribute('data-id'));
+        });
+    });
+
+    document.querySelectorAll('.btn-explanation').forEach(button => {
+        button.addEventListener('click', () => {
+            openExplanationWindow(button.getAttribute('data-id'));
+        });
+    });
+
+    document.querySelectorAll('.btn-full-thikr').forEach(button => {
+        button.addEventListener('click', () => {
+            openFullThikrWindow(button.getAttribute('data-id'));
+        });
+    });
+}
+
+// Function to open the modal and inject content
+function openModal(content) {
+    const modal = document.getElementById("myModal");
+    const modalBody = document.getElementById("modalBody");
+    modalBody.innerHTML = content;
+    modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+// Function to open a Thikr window with the pure Thikr text
+function openThikrWindow(id) {
+    fetch('supplications.json')
+        .then(response => response.json())
+        .then(data => {
+            const supplication = data.sections.flatMap(section => section.supplications).map(supp => supp[id]).find(Boolean);
+            if (supplication) {
+                const content = `
+                    <h2>ذكر خالص</h2>
+                    <p>${supplication.pureThikr}</p>
+                `;
+                openModal(content);
+            }
+        })
+        .catch(error => console.error('Error fetching the supplication:', error));
+}
+
+// Function to open an Explanation window
+function openExplanationWindow(id) {
+    fetch('supplications.json')
+        .then(response => response.json())
+        .then(data => {
+            const supplication = data.sections.flatMap(section => section.supplications).map(supp => supp[id]).find(Boolean);
+            if (supplication) {
+                const content = `
+                    <h2>توضيح</h2>
+                    <p>${supplication.explanation}</p>
+                `;
+                openModal(content);
+            }
+        })
+        .catch(error => console.error('Error fetching the supplication:', error));
+}
 
 // Function to open the full Thikr window
 function openFullThikrWindow(id) {
@@ -79,7 +148,7 @@ function openFullThikrWindow(id) {
                     <p><strong>الذكر:</strong> ${supplication.pureThikr}</p>
                     <p><strong>المصدر:</strong> ${supplication.source}</p>
                     <p><strong>التوضيح:</strong> ${supplication.explanation}</p>
-                    `;
+                `;
                 openModal(content);
             }
         })
