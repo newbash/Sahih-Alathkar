@@ -11,22 +11,55 @@ body {
     direction: rtl; /* Ensures all text flows right-to-left */
 }
 
+.rubik {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.amiri-regular {
+    font-family: "Amiri", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.amiri-bold {
+    font-family: "Amiri", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
 header {
     background-color: #333;
-    color: white;
+    color: #fff;
+    padding: 10px 0;
     text-align: center;
-    padding: 20px 0;
-    font-size: 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 nav ul {
     list-style-type: none;
+    margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
-    display: inline;
-    margin-left: 15px; /* Adjust to keep spacing consistent with RTL layout */
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f4f4f4;
 }
 
 a {
