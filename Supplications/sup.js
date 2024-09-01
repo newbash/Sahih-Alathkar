@@ -48,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span class="supplication-source">${supplication.source}</span>
                         <span class="supplication-benefit">${supplication.benefit}</span>
                         <div class="supplication-buttons">
+                            <button class="btn-copy" data-id="${supplicationId}" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
                             <button class="btn-pure-thikr" data-id="${supplicationId}" title="ذكر خالص"><img src="Assets/Btns/benefits.svg" alt="ذكر خالص"></button>
                             <button class="btn-explanation" data-id="${supplicationId}" title="توضيح"><img src="Assets/Btns/source.svg" alt="توضيح"></button>
                             <button class="btn-full-thikr" data-id="${supplicationId}" title="الذكر الكامل"><img src="Assets/Btns/full-thikr.svg" alt="الذكر الكامل"></button>
-                            <button class="btn-copy" data-id="${supplicationId}" title="نسخ"><img src="Assets/Btns/copy.svg" alt="نسخ"></button>
                         </div>
                     `;
                     contentUl.appendChild(li);
