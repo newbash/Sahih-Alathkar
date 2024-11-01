@@ -10,6 +10,12 @@
             "request": "launch",
             "name": "Open index.html",
             "file": "/Users/newbashiq/Library/CloudStorage/OneDrive-Personal/A-Prime/Development/Code/2024/Sahih-Alathkar/index.html"
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Open index.html",
+            "file": "/Users/newbashiq/Library/CloudStorage/OneDrive-Personal/A-Prime/Development/Code/2024/Sahih-Alathkar/index.html"
         }
     ]
 }
